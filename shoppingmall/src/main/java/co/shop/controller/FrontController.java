@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.shop.common.Command;
 import co.shop.main.command.MainCommand;
+import co.shop.member.command.Login;
 
 
 
@@ -36,6 +38,7 @@ public class FrontController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainCommand());
+		map.put("/login.do", new Login());
 	}
 
 	/**
@@ -56,8 +59,12 @@ public class FrontController extends HttpServlet {
 				response.getWriter().append(viewPage.substring(5));
 				return;
 			}
-			
-			viewPage = viewPage + ".tiles";
+			if(viewPage.equals("member/Login")) {
+				viewPage = "WEB-INF/views/" + viewPage + ".jsp";
+			} else {
+				viewPage = viewPage + ".tiles";
+				
+			}
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
