@@ -13,4 +13,5 @@
     	<servlet-name>Tiles</servlet-name>
     	<url-pattern>*.tiles</url-pattern>
 	</servlet-mapping>
+	
 </web-app>
